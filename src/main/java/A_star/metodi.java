@@ -11,21 +11,17 @@ import java.util.List;
 
 public class metodi {
 
-    /*
-     * metodo che prende la matrice, la posizione di partenza, la destinazione
-     * sonda i punti intorno
-     */
-    public static boolean A_star(List<Cordinata> frontiera,int[][] mat,Cordinata partenza , Cordinata destinazione){
+    public static boolean A_star_Torre(int[][] mat,List<Cordinata> frontiera,List<Cordinata>memoria,Cordinata partenza ,Cordinata destinazione){
         boolean soluzione = false;
+        if(!memoria.contains(partenza)){
+            memoria.add(partenza);
+        }
         if((partenza.getAltezza()-1) >= 0 ){//nord
-            //controlliamo che sia la casella di destinazione
-            if(partenza.getAltezza()-1 == destinazione.getAltezza() && partenza.getLarghezza() == destinazione.getLarghezza()){
+            if(partenza.getAltezza()-1 == destinazione.getAltezza() && partenza.getLarghezza() == destinazione.getLarghezza()){//controlliamo che sia la casella di destinazione
                 mat[partenza.getAltezza()-1][partenza.getLarghezza()] = 1;
-                soluzione = true;
+                return true;
             }else{
-                int val = DistanzaLineaAria(partenza.getAltezza()-1, partenza.getLarghezza() , destinazione.getAltezza(),
-                        destinazione.getLarghezza())+EuristicaManhattan(partenza.getAltezza()-1, partenza.getLarghezza() ,
-                        destinazione.getAltezza(), destinazione.getLarghezza());
+                int val = FunzioneValutazione(partenza, destinazione);
                 mat[partenza.getAltezza()-1][partenza.getLarghezza()] = -1;
                 frontiera.add(new Cordinata(partenza.getAltezza()-1,partenza.getLarghezza(),val));
                 System.out.println(partenza.getAltezza()-1 + "<-- altezza " + partenza.getLarghezza() + "<-- larghezza "+ val +"<-- valore");
@@ -34,12 +30,9 @@ public class metodi {
         if((partenza.getAltezza()+1) < mat.length){//sud
             if(partenza.getAltezza()+1 == destinazione.getAltezza() && partenza.getLarghezza() == destinazione.getLarghezza()){
                 mat[partenza.getAltezza()+1][partenza.getLarghezza()] = 1;
-                soluzione = true;
+                return true;
             }else{
-                int val = DistanzaLineaAria(partenza.getAltezza()+1, partenza.getLarghezza(), destinazione.getAltezza(),
-                        destinazione.getLarghezza())+EuristicaManhattan(partenza.getAltezza()+1, partenza.getLarghezza() ,
-                        destinazione.getAltezza(), destinazione.getLarghezza());
-                mat[partenza.getAltezza()+1][partenza.getLarghezza()] = -1;
+                int val = FunzioneValutazione(partenza, destinazione);
                 frontiera.add(new Cordinata(partenza.getAltezza()+1,partenza.getLarghezza(),val));
                 System.out.println(partenza.getAltezza()+1 + "<-- altezza " + partenza.getLarghezza() + "<-- larghezza "+ val +"<-- valore");
             }
@@ -47,11 +40,9 @@ public class metodi {
         if(partenza.getLarghezza()+1 < mat[0].length){//est
             if(partenza.getAltezza() == destinazione.getAltezza() && partenza.getLarghezza()+1 == destinazione.getLarghezza()){
                 mat[partenza.getAltezza()][partenza.getLarghezza()+1] = 1;
-                soluzione = true;
+                return true;
             }else{
-                int val = DistanzaLineaAria(partenza.getAltezza(), partenza.getLarghezza()+1, destinazione.getAltezza(),
-                        destinazione.getLarghezza())+EuristicaManhattan(partenza.getAltezza(), partenza.getLarghezza()+1 ,
-                        destinazione.getAltezza(), destinazione.getLarghezza());
+                int val = FunzioneValutazione(partenza, destinazione);
                 mat[partenza.getAltezza()][partenza.getLarghezza()+1] = -1;
                 frontiera.add(new Cordinata(partenza.getAltezza(),partenza.getLarghezza()+1,val));
                 System.out.println(partenza.getAltezza()+ "<-- altezza " + (partenza.getLarghezza()+1) + "<-- larghezza "+ val +"<-- valore");
@@ -60,31 +51,28 @@ public class metodi {
         if(partenza.getLarghezza()-1 >= 0){//ovest
             if(partenza.getAltezza() == destinazione.getAltezza() && partenza.getLarghezza()-1 == destinazione.getLarghezza()){
                 mat[partenza.getAltezza()][partenza.getLarghezza()-1] = 1;
-                soluzione = true;
+                return true;
             }else{
-                int val = DistanzaLineaAria(partenza.getAltezza(), partenza.getLarghezza()-1, destinazione.getAltezza(),
-                        destinazione.getLarghezza())+EuristicaManhattan(partenza.getAltezza(), partenza.getLarghezza()-1 ,
-                        destinazione.getAltezza(), destinazione.getLarghezza());
+                int val = FunzioneValutazione(partenza, destinazione);
                 mat[partenza.getAltezza()][partenza.getLarghezza()-1] = -1;
                 frontiera.add(new Cordinata(partenza.getAltezza(),partenza.getLarghezza()-1,val));
                 System.out.println(partenza.getAltezza() + "<-- altezza " + (partenza.getLarghezza()-1) + "<-- larghezza "+ val +"<-- valore");
             }
         }
-        if(!soluzione){
-            Cordinata max = Collections.max(frontiera, new Comparator<Cordinata>() {
-                @Override
-                public int compare(Cordinata o1, Cordinata o2) {
-                    return Integer.compare(o2.getPunteggio(), o1.getPunteggio());
-                }
-            });
-            frontiera.remove(max);
-            PrintMatrix(mat);
-            return A_star(frontiera,mat,max,destinazione);
-        }else {
-            return soluzione;
-        }
+        Cordinata max = Collections.max(frontiera, new Comparator<Cordinata>() {
+            @Override
+            public int compare(Cordinata o1, Cordinata o2) {
+                return Integer.compare(o2.getPunteggio(), o1.getPunteggio());
+            }
+        });
+        frontiera.remove(max);
+        PrintMatrix(mat);
+        return A_star_Torre(mat,frontiera,memoria,max,destinazione);
+
 
     }
+
+
 
     //metodo che stampa la matrice di int degli oggetti casella
     public static void PrintMatrix(int[][] mat){
@@ -94,6 +82,12 @@ public class metodi {
             }
             System.out.println();
         }
+    }
+
+    public static int FunzioneValutazione(Cordinata partenza ,Cordinata destinazione){
+        return  DistanzaLineaAria(partenza.getAltezza(), partenza.getLarghezza()+1, destinazione.getAltezza(),
+                destinazione.getLarghezza())+EuristicaManhattan(partenza.getAltezza(), partenza.getLarghezza()+1 ,
+                destinazione.getAltezza(), destinazione.getLarghezza());
     }
 
     //distanza in linea d'aria tra due punti del grafico
