@@ -9,9 +9,9 @@ import java.util.Objects;
 public class Cordinata {
     private int altezza;
     private int larghezza;
-    private int punteggio;
+    private double punteggio;
 
-    public Cordinata(int a, int l, int v){
+    public Cordinata(int a, int l, double v){
         this.altezza = a;
         this.larghezza = l;
         this.punteggio = v;
@@ -21,7 +21,7 @@ public class Cordinata {
         return altezza;
     }
 
-    public int getPunteggio() {
+    public double getPunteggio() {
         return punteggio;
     }
 
