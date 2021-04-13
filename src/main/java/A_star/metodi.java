@@ -11,11 +11,12 @@ import java.util.List;
 
 public class metodi {
 
-    public static boolean A_star_Torre(int[][] mat,List<Cordinata> frontiera,Cordinata statoAttuale ,Cordinata statoDestinazione){
+    public static boolean A_star_Torre(int[][] mat,List<Cordinata> frontiera,List<Cordinata> memoria,Cordinata statoAttuale ,Cordinata statoDestinazione){
         boolean soluzione = false;
-
-
-        if((statoAttuale.getAltezza()-1) >= 0 ){//nord
+        if(!exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza())){
+            memoria.add(statoAttuale);
+        }
+        if((statoAttuale.getAltezza()-1) >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza())){//nord
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){//controlliamo che sia la casella di destinazione
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = 1;
                 return true;
@@ -23,10 +24,10 @@ public class metodi {
                 double val = FunzioneValutazione(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = -1;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza()-1,statoAttuale.getLarghezza(),val));
-                System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val +"<-- valore");
+                System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if((statoAttuale.getAltezza()+1) < mat.length){//sud
+        if((statoAttuale.getAltezza()+1) < mat.length && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza())){//sud
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = 1;
                 return true;
@@ -34,10 +35,10 @@ public class metodi {
                 double val = FunzioneValutazione(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = -1;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza()+1,statoAttuale.getLarghezza(),val));
-                System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val +"<-- valore");
+                System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()+1 < mat[0].length ){//est
+        if(statoAttuale.getLarghezza()+1 < mat[0].length && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1)){//est
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = 1;
                 return true;
@@ -45,10 +46,10 @@ public class metodi {
                 double val = FunzioneValutazione(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = -1;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza(),statoAttuale.getLarghezza()+1,val));
-                System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val +"<-- valore");
+                System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()-1 >= 0 ){//ovest
+        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1)){//ovest
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = 1;
                 return true;
@@ -56,7 +57,7 @@ public class metodi {
                 double val = FunzioneValutazione(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = -1;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza(),statoAttuale.getLarghezza()-1,val));
-                System.out.println(statoAttuale.getAltezza() + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val +"<-- valore");
+                System.out.println(statoAttuale.getAltezza() + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
         Cordinata max = Collections.max(frontiera, new Comparator<Cordinata>() {
@@ -67,15 +68,15 @@ public class metodi {
         });
         frontiera.remove(max);
         PrintMatrix(mat);
-        return A_star_Torre(mat,frontiera,max,statoDestinazione);
+        return A_star_Torre(mat,frontiera,memoria,max,statoDestinazione);
 
 
     }
 
-    //metodo che controlla se un elemento e stato gia aggiunto nella frontiera
-    private static boolean exist(List<Cordinata> frontiera,int altezza, int larghezza) {
-        for(Cordinata x : frontiera){
-            if(x.getAltezza()== altezza && x.getLarghezza() == larghezza){
+    //metodo che controlla se un elemento e gia stato visitato
+    private static boolean exist(List<Cordinata> memoria,double altezza, double larghezza) {
+        for(Cordinata x : memoria){
+            if(x.getAltezza() == altezza && x.getLarghezza() == larghezza){
                 return true;
             }
         }
