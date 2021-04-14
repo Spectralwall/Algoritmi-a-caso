@@ -17,12 +17,12 @@ public class metodi {
 
     //algorimo A* che per il movimento come una torre ovvero solo su/giu/destra/sinistra
     public static boolean A_star_Torre(String[][] mat,List<Cordinata> frontiera,List<Cordinata> memoria,Cordinata statoAttuale ,Cordinata statoDestinazione){
-        if(!exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza())){
+        if(!existMemoria(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza())){
             memoria.add(statoAttuale);
             //segniamo che la casella è stata esplorata
             mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()]= ANSI_RED+"E"+ANSI_RESET;
         }
-        if((statoAttuale.getAltezza()-1) >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza())){//nord
+        if((statoAttuale.getAltezza()-1) >= 0 && !existMemoria(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()) && !existFrontiera(frontiera,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza())){//nord
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){//controlliamo che sia la casella di destinazione
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -33,7 +33,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if((statoAttuale.getAltezza()+1) < mat.length && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza())){//sud
+        if((statoAttuale.getAltezza()+1) < mat.length && !existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()) && !existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza())){//sud
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -44,7 +44,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()+1 < mat[0].length && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1)){//est
+        if(statoAttuale.getLarghezza()+1 < mat[0].length && !existMemoria(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1) && !existFrontiera(frontiera,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1)){//est
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -55,7 +55,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1)){//ovest
+        if(statoAttuale.getLarghezza()-1 >= 0 && !existMemoria(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1) && !existFrontiera(frontiera,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1)){//ovest
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -81,12 +81,12 @@ public class metodi {
 
     //algorimo A* che per il movimento come una torre ovvero solo su/giu/destra/sinistra
     public static boolean A_star_Regina(String[][] mat,List<Cordinata> frontiera,List<Cordinata> memoria,Cordinata statoAttuale ,Cordinata statoDestinazione){
-        if(!exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza())){
+        if(!existMemoria(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza())){
             memoria.add(statoAttuale);
             //segniamo che la casella è stata esplorata
             mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()]= ANSI_RED+"E"+ANSI_RESET;
         }
-        if((statoAttuale.getAltezza()-1) >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza())){//nord
+        if((statoAttuale.getAltezza()-1) >= 0 && !existMemoria(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()) && !existFrontiera(frontiera,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza())){//nord
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){//controlliamo che sia la casella di destinazione
                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -97,7 +97,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if((statoAttuale.getAltezza()+1) < mat.length && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza())){//sud
+        if((statoAttuale.getAltezza()+1) < mat.length && !existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()) && !existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza())){//sud
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -108,7 +108,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()+1 < mat[0].length && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1)){//est
+        if(statoAttuale.getLarghezza()+1 < mat[0].length && !existMemoria(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1) && !existFrontiera(frontiera,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1)){//est
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -119,7 +119,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1)){//ovest
+        if(statoAttuale.getLarghezza()-1 >= 0 && !existMemoria(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1) && !existFrontiera(frontiera,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1)){//ovest
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -130,7 +130,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza() + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()+1 <= mat[0].length && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1)){//nord est
+        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()+1 <= mat[0].length && !existMemoria(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1) && !existFrontiera(frontiera,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1)){//nord est
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -141,7 +141,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1)){//nord ovest
+        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()-1 >= 0 && !existMemoria(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1) && !existFrontiera(frontiera,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1)){//nord ovest
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -152,7 +152,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()+1 <= mat[0].length && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1)){//sud est
+        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()+1 <= mat[0].length && !existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1) && !existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1)){//sud est
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -163,7 +163,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1)){//sud ovest
+        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()-1 >= 0 && !existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1) && !existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1)){//sud ovest
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -182,17 +182,22 @@ public class metodi {
         });
         frontiera.remove(max);
         PrintMatrix(mat);
-        try {
-            Thread.sleep(700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return A_star_Regina(mat,frontiera,memoria,max,statoDestinazione);
     }
 
-    //metodo che controlla se un elemento e gia stato visitato
-    private static boolean exist(List<Cordinata> memoria,double altezza, double larghezza) {
+    //metodo che controlla se una casella e gia stata visitata
+    private static boolean existMemoria(List<Cordinata> memoria, double altezza, double larghezza) {
         for(Cordinata x : memoria){
+            if(x.getAltezza() == altezza && x.getLarghezza() == larghezza){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //metodo che controlla se una casella é gia nella frontiera
+    private static boolean existFrontiera(List<Cordinata> frontiera, double altezza, double larghezza){
+        for(Cordinata x : frontiera){
             if(x.getAltezza() == altezza && x.getLarghezza() == larghezza){
                 return true;
             }
