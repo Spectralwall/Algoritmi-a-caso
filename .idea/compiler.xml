@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Progetti Personali" />
         <module name="Algoritmi vari" />
+        <module name="AlgoritmiVari" />
         <module name="Algoritmi Vari" />
+        <module name="Progetti Personali" />
       </profile>
     </annotationProcessing>
   </component>

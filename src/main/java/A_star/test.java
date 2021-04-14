@@ -14,8 +14,8 @@ public class test {
         Cordinata partenza = new Cordinata(0,0,0);//nodo di partenza
         Cordinata arrivo = new Cordinata(2,4,0);//nodo di destinazione
         //esecuzione
-        metodi.PrintMatrix(mat);
-        metodi.A_star_Torre(mat,frontiera,memoria,partenza,arrivo);
-        metodi.PrintMatrix(mat);
+        //metodi.PrintMatrix(mat);
+        //metodi.A_star_Torre(mat,frontiera,memoria,partenza,arrivo);
+        //metodi.PrintMatrix(mat);
     }
 }
