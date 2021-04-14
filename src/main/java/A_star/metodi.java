@@ -1,5 +1,4 @@
 package A_star;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -18,7 +17,6 @@ public class metodi {
 
     //algorimo A* che per il movimento come una torre ovvero solo su/giu/destra/sinistra
     public static boolean A_star_Torre(String[][] mat,List<Cordinata> frontiera,List<Cordinata> memoria,Cordinata statoAttuale ,Cordinata statoDestinazione){
-        boolean soluzione = false;
         if(!exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza())){
             memoria.add(statoAttuale);
             //segniamo che la casella è stata esplorata
@@ -29,7 +27,7 @@ public class metodi {
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
             }else{
-                double val = FunzioneValutazione(statoAttuale, statoDestinazione);
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_PURPLE+"F"+ANSI_RESET;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza()-1,statoAttuale.getLarghezza(),val));
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
@@ -40,7 +38,7 @@ public class metodi {
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
             }else{
-                double val = FunzioneValutazione(statoAttuale, statoDestinazione);
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = ANSI_PURPLE+"F"+ANSI_RESET;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza()+1,statoAttuale.getLarghezza(),val));
                 System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
@@ -51,7 +49,7 @@ public class metodi {
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
             }else{
-                double val = FunzioneValutazione(statoAttuale, statoDestinazione);
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = ANSI_PURPLE+"F"+ANSI_RESET;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza(),statoAttuale.getLarghezza()+1,val));
                 System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
@@ -62,7 +60,7 @@ public class metodi {
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
             }else{
-                double val = FunzioneValutazione(statoAttuale, statoDestinazione);
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_PURPLE+"F"+ANSI_RESET;
                 frontiera.add(new Cordinata(statoAttuale.getAltezza(),statoAttuale.getLarghezza()-1,val));
                 System.out.println(statoAttuale.getAltezza() + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
@@ -79,6 +77,112 @@ public class metodi {
         return A_star_Torre(mat,frontiera,memoria,max,statoDestinazione);
 
 
+    }
+
+    //algorimo A* che per il movimento come una torre ovvero solo su/giu/destra/sinistra
+    public static boolean A_star_Regina(String[][] mat,List<Cordinata> frontiera,List<Cordinata> memoria,Cordinata statoAttuale ,Cordinata statoDestinazione){
+        if(!exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza())){
+            memoria.add(statoAttuale);
+            //segniamo che la casella è stata esplorata
+            mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()]= ANSI_RED+"E"+ANSI_RESET;
+        }
+        if((statoAttuale.getAltezza()-1) >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza())){//nord
+            if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){//controlliamo che sia la casella di destinazione
+                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza()-1,statoAttuale.getLarghezza(),val));
+                System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        if((statoAttuale.getAltezza()+1) < mat.length && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza())){//sud
+            if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){
+                mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza()+1,statoAttuale.getLarghezza(),val));
+                System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + statoAttuale.getLarghezza() + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        if(statoAttuale.getLarghezza()+1 < mat[0].length && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()+1)){//est
+            if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
+                mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()+1] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza(),statoAttuale.getLarghezza()+1,val));
+                System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1)){//ovest
+            if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
+                mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza(),statoAttuale.getLarghezza()-1,val));
+                System.out.println(statoAttuale.getAltezza() + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()+1 <= mat[0].length ){//nord est
+            if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
+                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneRegina(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()+1] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza()-1,statoAttuale.getLarghezza()+1,val));
+                System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()-1 >= 0){//nord ovest
+            if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
+                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneRegina(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()-1] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza()-1,statoAttuale.getLarghezza()+1,val));
+                System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()+1 <= mat[0].length){//sud est
+            if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
+                mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneRegina(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()+1] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza()+1,statoAttuale.getLarghezza()+1,val));
+                System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()-1 >= 0){//sud ovest
+            if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
+                mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
+                return true;
+            }else{
+                double val = FunzioneValutazioneRegina(statoAttuale, statoDestinazione);
+                mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()-1] = ANSI_PURPLE+"F"+ANSI_RESET;
+                frontiera.add(new Cordinata(statoAttuale.getAltezza()+1,statoAttuale.getLarghezza()-1,val));
+                System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
+            }
+        }
+        Cordinata max = Collections.max(frontiera, new Comparator<Cordinata>() {
+            @Override
+            public int compare(Cordinata o1, Cordinata o2) {
+                return Double.compare(o2.getPunteggio(), o1.getPunteggio());
+            }
+        });
+        frontiera.remove(max);
+        PrintMatrix(mat);
+        return A_star_Torre(mat,frontiera,memoria,max,statoDestinazione);
     }
 
     //metodo che controlla se un elemento e gia stato visitato
@@ -102,9 +206,16 @@ public class metodi {
     }
 
     //f(x) = g(x) + h(x) funzione di valutazione = funzione euristica + distanza in linea d'aria
-    public static double FunzioneValutazione(Cordinata partenza ,Cordinata destinazione){
+    public static double FunzioneValutazioneTorre(Cordinata partenza , Cordinata destinazione){
         return  DistanzaLineaAria(partenza.getAltezza(), partenza.getLarghezza()+1, destinazione.getAltezza(),
                 destinazione.getLarghezza())+ EuristicaManhattan(partenza.getAltezza(), partenza.getLarghezza()+1 ,
+                destinazione.getAltezza(), destinazione.getLarghezza());
+    }
+
+    //f(x) = g(x) + h(x) funzione di valutazione = funzione euristica + distanza in linea d'aria
+    public static double FunzioneValutazioneRegina(Cordinata partenza , Cordinata destinazione){
+        return  DistanzaLineaAria(partenza.getAltezza(), partenza.getLarghezza()+1, destinazione.getAltezza(),
+                destinazione.getLarghezza())+ EuristicaCebysev(partenza.getAltezza(), partenza.getLarghezza()+1 ,
                 destinazione.getAltezza(), destinazione.getLarghezza());
     }
 
