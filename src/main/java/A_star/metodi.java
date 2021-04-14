@@ -55,7 +55,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1)){//ovest
+        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1)){//ovest
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -88,7 +88,7 @@ public class metodi {
         }
         if((statoAttuale.getAltezza()-1) >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza())){//nord
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza() == statoDestinazione.getLarghezza()){//controlliamo che sia la casella di destinazione
-                mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
+               mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
             }else{
                 double val = FunzioneValutazioneTorre(statoAttuale, statoDestinazione);
@@ -119,7 +119,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+ "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1)){//ovest
+        if(statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza(), statoAttuale.getLarghezza()-1)){//ovest
             if(statoAttuale.getAltezza() == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -130,7 +130,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza() + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()+1 <= mat[0].length ){//nord est
+        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()+1 <= mat[0].length && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1)){//nord est
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -141,18 +141,18 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()-1 >= 0){//nord ovest
+        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()-1)){//nord ovest
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
             }else{
                 double val = FunzioneValutazioneRegina(statoAttuale, statoDestinazione);
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()-1] = ANSI_PURPLE+"F"+ANSI_RESET;
-                frontiera.add(new Cordinata(statoAttuale.getAltezza()-1,statoAttuale.getLarghezza()+1,val));
+                frontiera.add(new Cordinata(statoAttuale.getAltezza()-1,statoAttuale.getLarghezza()-1,val));
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()+1 <= mat[0].length){//sud est
+        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()+1 <= mat[0].length && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1)){//sud est
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -163,7 +163,7 @@ public class metodi {
                 System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()-1 >= 0){//sud ovest
+        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()-1 >= 0 && !exist(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1)){//sud ovest
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -182,7 +182,12 @@ public class metodi {
         });
         frontiera.remove(max);
         PrintMatrix(mat);
-        return A_star_Torre(mat,frontiera,memoria,max,statoDestinazione);
+        try {
+            Thread.sleep(700);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return A_star_Regina(mat,frontiera,memoria,max,statoDestinazione);
     }
 
     //metodo che controlla se un elemento e gia stato visitato
