@@ -16,7 +16,7 @@ public class test {
         //esecuzione
         metodi.Popola(mat,partenza,arrivo);
         metodi.PrintMatrix(mat);
-        //metodi.A_star_Torre(mat,frontiera,memoria,partenza,arrivo);
-        //metodi.PrintMatrix(mat);
+        metodi.A_star_Torre(mat,frontiera,memoria,partenza,arrivo);
+        metodi.PrintMatrix(mat);
     }
 }
