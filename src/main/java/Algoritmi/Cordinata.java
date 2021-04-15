@@ -1,10 +1,8 @@
-package A_star;
+package Algoritmi;
 
 /*
  * classe per salvare cordinata valore
  */
-
-import java.util.Objects;
 
 public class Cordinata {
     private int altezza;
