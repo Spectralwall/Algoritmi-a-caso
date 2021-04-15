@@ -90,4 +90,25 @@ public class metodi {
             }
         }
     }
+
+    //funzione che controlla se si tratta dello stato obiettivo
+    public static boolean TargetControl(Cordinata target, int a , int l){
+        if(a == target.getAltezza() && l == target.getLarghezza()){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    //funzione che controlla se si tratta dello stato obiettivo o del l'altro processo
+    public static boolean TargetControlBidirezional(String[][] mat,Cordinata target, int a , int l){
+        if(a == target.getAltezza() && l == target.getLarghezza()){
+            return true;
+        }else if(mat[a][l].equals("D")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
