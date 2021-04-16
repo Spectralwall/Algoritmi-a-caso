@@ -8,9 +8,9 @@ public class Cercatori extends Thread{
 
     private static Cordinata obiettivo;
     private static Cordinata partenza;
-    private static int[][] matrice;
+    private static String[][] matrice;
 
-    public Cercatori(Cordinata target,Cordinata start,int[][] mat){
+    public Cercatori(Cordinata target,Cordinata start,String[][] mat){
         this.obiettivo = target;
         this.partenza = start;
         this.matrice = mat;
@@ -20,6 +20,6 @@ public class Cercatori extends Thread{
     public void run() {
         List<Cordinata> frontiera = new ArrayList<Cordinata>();//la lista della frontiera
         List<Cordinata> memoria = new ArrayList<Cordinata>();//lista di codirnate gia visitate
-
+        Bidirezionale.A_star_Regina_Bidirezionale(matrice,frontiera,memoria,partenza,obiettivo);
     }
 }

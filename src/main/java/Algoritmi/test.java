@@ -8,7 +8,7 @@ public class test {
     public static void main(String[] args) {
 
         //codice dedicato all'esecuzione di A_star
-
+        /*
         //creo matrice di caselle
         String[][]mat = new String[7][12];
 
@@ -24,7 +24,7 @@ public class test {
         //A_star.A_star_Torre(mat,frontiera,memoria,partenza,arrivo);
         A_star.A_star_Regina(mat,frontiera,memoria,partenza,arrivo);
         metodi.PrintMatrix(mat);
-
+        */
 
         //codice dedicato all'esecuzione della ricerca bidirezionale
         /*
@@ -37,6 +37,11 @@ public class test {
         metodi.Popola(mat,partenza,arrivo);
 
         //esecuzione
+        metodi.PrintMatrix(mat);
+        Cercatori a = new Cercatori(arrivo,partenza,mat);
+        Cercatori b = new Cercatori(partenza,arrivo,mat);
+        b.run();
+        a.run();
         metodi.PrintMatrix(mat);
         */
     }

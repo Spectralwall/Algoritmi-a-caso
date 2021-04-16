@@ -53,8 +53,9 @@ public class metodi {
     //f(x) = g(x) + h(x) funzione di valutazione = funzione euristica + distanza in linea d'aria
     public static double FunzioneValutazioneRegina(Cordinata partenza , Cordinata destinazione){
         return  DistanzaLineaAria(partenza.getAltezza(), partenza.getLarghezza()+1, destinazione.getAltezza(),
-                destinazione.getLarghezza())+ EuristicaCebysev(partenza.getAltezza(), partenza.getLarghezza()+1 ,
-                destinazione.getAltezza(), destinazione.getLarghezza());
+                destinazione.getLarghezza())+ 1;
+                //EuristicaCebysev(partenza.getAltezza(), partenza.getLarghezza()+1 ,
+                //destinazione.getAltezza(), destinazione.getLarghezza());
     }
 
     //distanza in linea d'aria tra due punti del grafico
@@ -104,7 +105,7 @@ public class metodi {
     public static boolean TargetControlBidirezional(String[][] mat,Cordinata target, int a , int l){
         if(a == target.getAltezza() && l == target.getLarghezza()){
             return true;
-        }else if(mat[a][l].equals("D")){
+        }else if(mat[a][l].equals("E")){
             return true;
         }else{
             return false;

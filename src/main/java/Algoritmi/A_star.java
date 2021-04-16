@@ -131,7 +131,7 @@ public class A_star {
                 System.out.println(statoAttuale.getAltezza() + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()+1 <= mat[0].length && !metodi.existMemoria(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1) && !metodi.existFrontiera(frontiera,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1)){//nord est
+        if(statoAttuale.getAltezza()-1 >= 0 && statoAttuale.getLarghezza()+1 < mat[0].length && !metodi.existMemoria(memoria,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1) && !metodi.existFrontiera(frontiera,statoAttuale.getAltezza()-1, statoAttuale.getLarghezza()+1)){//nord est
             if(statoAttuale.getAltezza()-1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()-1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -153,7 +153,7 @@ public class A_star {
                 System.out.println(statoAttuale.getAltezza()-1 + "<-- altezza " + (statoAttuale.getLarghezza()-1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()+1 <= mat[0].length && !metodi.existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1) && !metodi.existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1)){//sud est
+        if(statoAttuale.getAltezza()+1 < mat.length && statoAttuale.getLarghezza()+1 < mat[0].length && !metodi.existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1) && !metodi.existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()+1)){//sud est
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()+1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()+1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
@@ -164,7 +164,7 @@ public class A_star {
                 System.out.println(statoAttuale.getAltezza()+1 + "<-- altezza " + (statoAttuale.getLarghezza()+1) + "<-- larghezza "+ val + "<-- valore");
             }
         }
-        if(statoAttuale.getAltezza()+1 <= mat.length && statoAttuale.getLarghezza()-1 >= 0 && !metodi.existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1) && !metodi.existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1)){//sud ovest
+        if(statoAttuale.getAltezza()+1 < mat.length && statoAttuale.getLarghezza()-1 >= 0 && !metodi.existMemoria(memoria,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1) && !metodi.existFrontiera(frontiera,statoAttuale.getAltezza()+1, statoAttuale.getLarghezza()-1)){//sud ovest
             if(statoAttuale.getAltezza()+1 == statoDestinazione.getAltezza() && statoAttuale.getLarghezza()-1 == statoDestinazione.getLarghezza()){
                 mat[statoAttuale.getAltezza()+1][statoAttuale.getLarghezza()-1] = ANSI_RED+"D"+ANSI_RESET;
                 return true;
